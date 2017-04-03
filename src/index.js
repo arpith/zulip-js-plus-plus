@@ -23,7 +23,12 @@ function resources(config) {
 
 function zulip(initialConfig) {
   const config = initialConfig;
-  config.apiURL = `${config.realm}/api/v1`;
+  if (config.realm.endsWith('/api')) {
+    config.apiURL = `${config.realm}/v1`;
+  } else {
+    config.apiURL = `${config.realm}/api/v1`;
+  }
+
   if (!config.apiKey) {
     return accounts(config).retrieve().then((res) => {
       config.apiKey = res.api_key;
