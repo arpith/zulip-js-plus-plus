@@ -2,7 +2,8 @@
   "name": "zulip-js",
   "version": "1.0.12",
   "description": "Javascript library to access the Zulip API",
-  "main": "lib/index.js",
+  "main": "dist/node",
+  "browser": "dist/browser",
   "directories": {
     "test": "test"
   },
@@ -26,7 +27,9 @@
     "chai": "^3.5.0"
   },
   "scripts": {
-    "compile": "babel --presets es2015 -d lib/ src/",
+    "compile-node": "babel --presets es2015 -d dist/node src",
+    "compile-browser": "babel --presets es2015 --target browser --ignore zuliprc -d dist/browser src",
+    "compile": "npm run compile-node && npm run compile-browser",
     "prepublish": "npm run compile",
     "lint": "eslint src test examples",
     "test": "npm run lint && mocha --recursive"
