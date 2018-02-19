@@ -18,6 +18,11 @@ const eventParams = {
   dont_block: true,
 };
 
+const reactionParams = {
+  message_id: 1,
+  emoji: 'smile',
+};
+
 chai.should();
 
 describe('Reactions', () => {
@@ -25,23 +30,15 @@ describe('Reactions', () => {
     eventParams.queue_id = res.queue_id;
   }));
 
-  it('Should add reaction', () => {
-    const params = {
-      message_id: 1,
-      emoji: 'smile',
-    };
-    reactions(config).add(params).should.eventually.have.property('result', 'success');
-  });
+  it('Should add reaction',
+    () => reactions(config).add(reactionParams).should.eventually.have.property('result', 'success')
+  );
 
-  it('Should remove reaction', () => {
-    const params = {
-      message_id: 1,
-      emoji: 'smile',
-    };
-    reactions(config).remove(params).should.eventually.have.property('result', 'success');
-  });
+  it('Should remove reaction',
+    () => reactions(config).remove(reactionParams).should.eventually.have.property('result', 'success')
+  );
 
-  it('Should retrieve reaction events', () => {
-    events(config).retrieve(eventParams).should.eventually.have.property('result', 'success');
-  });
+  it('Should retrieve reaction events',
+    () => events(config).retrieve(eventParams).should.eventually.have.property('result', 'success')
+  );
 });
